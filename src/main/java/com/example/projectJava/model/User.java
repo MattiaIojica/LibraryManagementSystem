@@ -1,8 +1,10 @@
 package com.example.projectJava.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -12,33 +14,48 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id")
-    private String userId;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String email;
-    private String address;
 
     @Column(name = "member_since")
     private LocalDate memberSince;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    private Address address;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Reservation> reservations;
+
+
     public User() {
     }
 
-    public User(Long id, String userId, String name, String email, String address, LocalDate memberSince) {
+    public User(Long id, String firstName, String lastName, String email, LocalDate memberSince, Address address, List<Reservation> reservations) {
         this.id = id;
-        this.userId = userId;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
-        this.address = address;
         this.memberSince = memberSince;
+        this.address = address;
+        this.reservations = reservations;
     }
 
-    public User(String userId, String name, String email, String address, LocalDate memberSince) {
-        this.userId = userId;
-        this.name = name;
+    public User(String firstName, String lastName, String email, LocalDate memberSince, Address address, List<Reservation> reservations) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
-        this.address = address;
         this.memberSince = memberSince;
+        this.address = address;
+        this.reservations = reservations;
+    }
+
+    public User(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
     }
 
     public Long getId() {
@@ -49,20 +66,20 @@ public class User {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getName() {
-        return name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -73,20 +90,28 @@ public class User {
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public LocalDate getMemberSince() {
         return memberSince;
     }
 
     public void setMemberSince(LocalDate memberSince) {
         this.memberSince = memberSince;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }
 

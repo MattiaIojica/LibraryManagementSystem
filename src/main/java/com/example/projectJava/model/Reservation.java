@@ -24,6 +24,13 @@ public class Reservation {
 
     private String status;
 
+    public Reservation() {
+    }
+
+    public Reservation(LocalDate reservationDate) {
+        this.reservationDate = reservationDate;
+    }
+
     public Long getId() {
         return id;
     }

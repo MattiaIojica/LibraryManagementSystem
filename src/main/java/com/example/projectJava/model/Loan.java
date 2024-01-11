@@ -74,10 +74,4 @@ public class Loan {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    // Getters and Setters
-
-    // Constructors
-
-    // Additional methods if needed
 }
