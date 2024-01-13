@@ -17,11 +17,13 @@ import java.util.List;
 @RequestMapping("/loans")
 public class LoanController {
 
-    @Autowired
-    private LoanService loanService;
+    private final LoanService loanService;
+
 
     @Autowired
-    private LoanMapper loanMapper;
+    public LoanController(LoanService loanService) {
+        this.loanService = loanService;
+    }
 
     @GetMapping
     public ResponseEntity<List<LoanDto>> getAllLoans() {

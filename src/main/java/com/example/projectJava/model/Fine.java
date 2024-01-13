@@ -21,6 +21,13 @@ public class Fine {
     @Column(name = "payment_status")
     private String paymentStatus;
 
+    public Fine() {
+    }
+
+    public Fine(BigDecimal amount) {
+        this.amount = amount;
+    }
+
     public Long getId() {
         return id;
     }

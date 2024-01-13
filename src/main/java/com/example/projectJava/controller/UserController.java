@@ -1,6 +1,7 @@
 package com.example.projectJava.controller;
 
 
+import com.example.projectJava.dto.FineDto;
 import com.example.projectJava.dto.LoanDto;
 import com.example.projectJava.dto.ReservationDto;
 import com.example.projectJava.dto.UserDto;
@@ -19,13 +20,10 @@ import java.util.List;
 @RestController
 public class UserController {
     private UserService userService;
-    private ReservationService reservationService;
 
 
-    public UserController(UserService userService,
-                          ReservationService reservationService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.reservationService = reservationService;
     }
 
     @GetMapping
@@ -68,4 +66,9 @@ public class UserController {
         return ResponseEntity.ok(reservations);
     }
 
+    @GetMapping("/{id}/fines")
+    public ResponseEntity<List<FineDto>> getFinesByUserID(@PathVariable Long id) {
+        List<FineDto> fines = userService.getFinesByUserId(id);
+        return ResponseEntity.ok(fines);
+    }
 }

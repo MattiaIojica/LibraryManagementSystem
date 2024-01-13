@@ -1,16 +1,20 @@
 package com.example.projectJava.service;
 
+import com.example.projectJava.dto.FineDto;
 import com.example.projectJava.dto.LoanDto;
 import com.example.projectJava.dto.ReservationDto;
 import com.example.projectJava.dto.UserDto;
 import com.example.projectJava.exception.DuplicateUserException;
 import com.example.projectJava.exception.UserNotFoundException;
+import com.example.projectJava.mapper.FineMapper;
 import com.example.projectJava.mapper.LoanMapper;
 import com.example.projectJava.mapper.ReservationMapper;
 import com.example.projectJava.mapper.UserMapper;
+import com.example.projectJava.model.Fine;
 import com.example.projectJava.model.Loan;
 import com.example.projectJava.model.Reservation;
 import com.example.projectJava.model.User;
+import com.example.projectJava.repository.FineRepository;
 import com.example.projectJava.repository.ReservationRepository;
 import com.example.projectJava.repository.LoanRepository;
 import com.example.projectJava.repository.UserRepository;
@@ -31,19 +35,26 @@ public class UserService {
     private final ReservationRepository reservationRepository;
     private final ReservationMapper reservationMapper;
 
+    private final FineMapper fineMapper;
+    private final FineRepository fineRepository;
+
 
     public UserService(UserRepository userRepository,
                        UserMapper userMapper,
                        LoanRepository loanRepository,
                        LoanMapper loanMapper,
                        ReservationRepository reservationRepository,
-                       ReservationMapper reservationMapper) {
+                       ReservationMapper reservationMapper,
+                       FineMapper fineMapper,
+                       FineRepository fineRepository) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.loanRepository = loanRepository;
         this.loanMapper = loanMapper;
         this.reservationRepository = reservationRepository;
         this.reservationMapper = reservationMapper;
+        this.fineMapper = fineMapper;
+        this.fineRepository = fineRepository;
     }
 
     public List<UserDto> getAll(){
@@ -92,6 +103,15 @@ public class UserService {
         if (optionalUser.isPresent()) {
             List<Reservation> reservations = reservationRepository.findByUser(optionalUser.get());
             return reservationMapper.mapListToReservationDto(reservations);
+        }
+        return Collections.emptyList();
+    }
+
+    public List<FineDto> getFinesByUserId(Long userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isPresent()) {
+            List<Fine> reservations = fineRepository.findByUser(optionalUser.get());
+            return fineMapper.mapListToFineDto(reservations);
         }
         return Collections.emptyList();
     }
