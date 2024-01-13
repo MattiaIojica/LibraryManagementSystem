@@ -13,11 +13,14 @@ import java.util.Optional;
 @Service
 public class ReservationService {
 
-    @Autowired
-    private ReservationRepository reservationRepository;
+    private final ReservationRepository reservationRepository;
+    private final ReservationMapper reservationMapper;
 
     @Autowired
-    private ReservationMapper reservationMapper;
+    public ReservationService(ReservationRepository reservationRepository, ReservationMapper reservationMapper) {
+        this.reservationRepository = reservationRepository;
+        this.reservationMapper = reservationMapper;
+    }
 
     public List<ReservationDto> getAllReservations() {
         List<Reservation> reservations = reservationRepository.findAll();
@@ -40,10 +43,10 @@ public class ReservationService {
         Optional<Reservation> optionalReservation = reservationRepository.findById(id);
         if (optionalReservation.isPresent()) {
             Reservation existingReservation = optionalReservation.get();
-            // Update existingReservation with data from reservationDto
+
             existingReservation.setReservationDate(reservationDto.getReservationDate());
             existingReservation.setStatus(reservationDto.getStatus());
-            // Update other fields as needed
+
             Reservation updatedReservation = reservationRepository.save(existingReservation);
             return reservationMapper.mapToReservationDto(updatedReservation);
         } else {

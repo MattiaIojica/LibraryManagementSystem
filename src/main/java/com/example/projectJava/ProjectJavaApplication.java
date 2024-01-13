@@ -19,18 +19,4 @@ public class ProjectJavaApplication {
 		SpringApplication.run(ProjectJavaApplication.class, args);
 	}
 
-
-//	@GetMapping
-//	public List<User> hello(){
-//		return List.of(
-//				new User(
-//						1L,
-//						"Laurentiu",
-//						"Popescu",
-//						"laur@gmail.com",
-//						LocalDate.of(2020, Month.APRIL, 2),
-//						new Address()
-//				)
-//		);
-//	}
 }

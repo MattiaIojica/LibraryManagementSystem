@@ -30,7 +30,7 @@ public class Loan {
     public Loan() {
     }
 
-
+    // Getters and Setters
     public void setId(Long id) {
         this.id = id;
     }

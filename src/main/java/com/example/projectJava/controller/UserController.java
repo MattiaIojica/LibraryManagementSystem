@@ -5,12 +5,9 @@ import com.example.projectJava.dto.FineDto;
 import com.example.projectJava.dto.LoanDto;
 import com.example.projectJava.dto.ReservationDto;
 import com.example.projectJava.dto.UserDto;
-import com.example.projectJava.mapper.UserMapper;
-import com.example.projectJava.model.User;
-import com.example.projectJava.service.ReservationService;
 import com.example.projectJava.service.UserService;
-import io.swagger.annotations.Api;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,9 +16,9 @@ import java.util.List;
 @RequestMapping("/users")
 @RestController
 public class UserController {
-    private UserService userService;
+    private final UserService userService;
 
-
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }

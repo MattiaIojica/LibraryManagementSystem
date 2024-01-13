@@ -13,11 +13,16 @@ import java.util.Optional;
 @Service
 public class AddressService {
 
-    @Autowired
-    private AddressRepository addressRepository;
+
+    private final AddressRepository addressRepository;
+    private final AddressMapper addressMapper;
 
     @Autowired
-    private AddressMapper addressMapper;
+    public AddressService(AddressRepository addressRepository,
+                          AddressMapper addressMapper) {
+        this.addressRepository = addressRepository;
+        this.addressMapper = addressMapper;
+    }
 
     public List<AddressDto> getAllAddresses() {
         List<Address> addresses = addressRepository.findAll();
@@ -35,15 +40,15 @@ public class AddressService {
         return addressMapper.mapToAddressDto(savedAddress);
     }
 
-    public AddressDto updateAddress(Long id, AddressDto addressDto) {
+    public AddressDto updateAddress(Long id,
+                                    AddressDto addressDto) {
         Optional<Address> optionalAddress = addressRepository.findById(id);
         if (optionalAddress.isPresent()) {
             Address existingAddress = optionalAddress.get();
-            // Update existingAddress with data from addressDto
             existingAddress.setStreet(addressDto.getStreet());
             existingAddress.setStreetNo(addressDto.getStreetNo());
             existingAddress.setBuilding(addressDto.getBuilding());
-            // Update other fields as needed
+
             Address updatedAddress = addressRepository.save(existingAddress);
             return addressMapper.mapToAddressDto(updatedAddress);
         } else {

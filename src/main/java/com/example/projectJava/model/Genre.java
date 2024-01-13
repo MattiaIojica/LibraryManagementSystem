@@ -15,6 +15,7 @@ public class Genre {
 
     private String description;
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }

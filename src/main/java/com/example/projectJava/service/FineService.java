@@ -18,7 +18,8 @@ public class FineService {
     private final FineMapper fineMapper;
 
     @Autowired
-    public FineService(FineRepository fineRepository, FineMapper fineMapper) {
+    public FineService(FineRepository fineRepository,
+                       FineMapper fineMapper) {
         this.fineRepository = fineRepository;
         this.fineMapper = fineMapper;
     }
@@ -41,12 +42,13 @@ public class FineService {
         return fineMapper.mapToFineDto(savedFine);
     }
 
-    public FineDto updateFine(Long id, FineDto fineDto) {
+    public FineDto updateFine(Long id,
+                              FineDto fineDto) {
         Optional<Fine> optionalFine = fineRepository.findById(id);
         if (optionalFine.isPresent()) {
             Fine existingFine = optionalFine.get();
             existingFine.setAmount(fineDto.getAmount());
-            // Other updates...
+
             Fine updatedFine = fineRepository.save(existingFine);
             return fineMapper.mapToFineDto(updatedFine);
         } else {

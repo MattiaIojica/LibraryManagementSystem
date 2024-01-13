@@ -10,7 +10,7 @@ public class BookDto {
     private int publishedYear;
     private int quantityAvailable;
 
-    // Constructors, getters, and setters
+    // Getters and Setters
 
     public Long getId() {
         return id;
@@ -67,6 +67,4 @@ public class BookDto {
     public void setQuantityAvailable(int quantityAvailable) {
         this.quantityAvailable = quantityAvailable;
     }
-
-    // Constructors, if needed
 }

@@ -64,15 +64,4 @@ public class FineDto {
     public void setPaymentStatus(String paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
-
-    @Override
-    public String toString() {
-        return "FineDto{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", amount=" + amount +
-                ", reason='" + reason + '\'' +
-                ", paymentStatus='" + paymentStatus + '\'' +
-                '}';
-    }
 }

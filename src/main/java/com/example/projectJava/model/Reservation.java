@@ -29,15 +29,7 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(LocalDate reservationDate, String status) {
-        this.reservationDate = reservationDate;
-        this.status = status;
-    }
-
-    public Reservation(LocalDate reservationDate) {
-        this.reservationDate = reservationDate;
-    }
-
+    // Getters and Setters
     public Long getId() {
         return id;
     }

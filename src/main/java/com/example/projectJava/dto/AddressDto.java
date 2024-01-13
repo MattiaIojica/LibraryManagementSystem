@@ -6,6 +6,8 @@ public class AddressDto {
     private Integer streetNo;
     private String building;
 
+    // Getters and Setters
+
     public Long getId() {
         return id;
     }

@@ -19,6 +19,8 @@ public class Address {
     @OneToOne(mappedBy = "address")
     private User user;
 
+
+    // Getters and Setters
     public Long getId() {
         return id;
     }

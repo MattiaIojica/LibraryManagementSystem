@@ -17,7 +17,8 @@ public class BookService {
     private final BookMapper bookMapper;
 
     @Autowired
-    public BookService(BookRepository bookRepository, BookMapper bookMapper) {
+    public BookService(BookRepository bookRepository,
+                       BookMapper bookMapper) {
         this.bookRepository = bookRepository;
         this.bookMapper = bookMapper;
     }
@@ -38,29 +39,17 @@ public class BookService {
         return bookMapper.mapToBookDto(savedBook);
     }
 
-    public BookDto updateBook(Long id, BookDto bookDto) {
+    public BookDto updateBook(Long id,
+                              BookDto bookDto) {
         Optional<Book> optionalBook = bookRepository.findById(id);
         if (optionalBook.isPresent()) {
             Book existingBook = optionalBook.get();
 
-            // Update only the fields that are present in the bookDto
-            if (bookDto.getTitle() != null) {
-                existingBook.setTitle(bookDto.getTitle());
-            }
-            if (bookDto.getAuthor() != null) {
-                existingBook.setAuthor(bookDto.getAuthor());
-            }
-            if (bookDto.getGenre() != null) {
-                existingBook.setGenre(bookDto.getGenre());
-            }
-            if (bookDto.getPublishedYear() != 0) {
-                existingBook.setPublishedYear(bookDto.getPublishedYear());
-            }
-            if (bookDto.getQuantityAvailable() != 0) {
-                existingBook.setQuantityAvailable(bookDto.getQuantityAvailable());
-            }
-
-            // Update other fields as needed
+            existingBook.setTitle(bookDto.getTitle());
+            existingBook.setAuthor(bookDto.getAuthor());
+            existingBook.setGenre(bookDto.getGenre());
+            existingBook.setPublishedYear(bookDto.getPublishedYear());
+            existingBook.setQuantityAvailable(bookDto.getQuantityAvailable());
 
             Book updatedBook = bookRepository.save(existingBook);
             return bookMapper.mapToBookDto(updatedBook);

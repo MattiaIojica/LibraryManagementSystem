@@ -13,8 +13,12 @@ import java.util.List;
 @RequestMapping("/reservations")
 public class ReservationController {
 
+    private final ReservationService reservationService;
+
     @Autowired
-    private ReservationService reservationService;
+    public ReservationController(ReservationService reservationService) {
+        this.reservationService = reservationService;
+    }
 
     @GetMapping
     public ResponseEntity<List<ReservationDto>> getAllReservations() {
@@ -34,13 +38,13 @@ public class ReservationController {
 
     @PostMapping
     public ResponseEntity<ReservationDto> createReservation(@RequestBody ReservationDto reservationDto) {
-        System.out.println(reservationDto.toString());
         ReservationDto createdReservation = reservationService.createReservation(reservationDto);
         return new ResponseEntity<>(createdReservation, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ReservationDto> updateReservation(@PathVariable Long id, @RequestBody ReservationDto reservationDto) {
+    public ResponseEntity<ReservationDto> updateReservation(@PathVariable Long id,
+                                                            @RequestBody ReservationDto reservationDto) {
         ReservationDto updatedReservation = reservationService.updateReservation(id, reservationDto);
         if (updatedReservation != null) {
             return new ResponseEntity<>(updatedReservation, HttpStatus.OK);

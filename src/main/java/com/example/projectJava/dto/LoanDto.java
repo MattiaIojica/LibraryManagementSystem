@@ -21,15 +21,7 @@ public class LoanDto {
     public LoanDto() {
     }
 
-    public LoanDto(Long id, Long bookId, Long userId, LocalDate dueDate, LocalDate returnDate, String status) {
-        this.id = id;
-        this.bookId = bookId;
-        this.userId = userId;
-        this.dueDate = dueDate;
-        this.returnDate = returnDate;
-        this.status = status;
-    }
-
+    // Getters and Setters
     public Long getId() {
         return id;
     }

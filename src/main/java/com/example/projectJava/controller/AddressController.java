@@ -13,8 +13,12 @@ import java.util.List;
 @RequestMapping("/addresses")
 public class AddressController {
 
+    private final AddressService addressService;
+
     @Autowired
-    private AddressService addressService;
+    public AddressController(AddressService addressService) {
+        this.addressService = addressService;
+    }
 
     @GetMapping
     public ResponseEntity<List<AddressDto>> getAllAddresses() {
@@ -39,7 +43,8 @@ public class AddressController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AddressDto> updateAddress(@PathVariable Long id, @RequestBody AddressDto addressDto) {
+    public ResponseEntity<AddressDto> updateAddress(@PathVariable Long id,
+                                                    @RequestBody AddressDto addressDto) {
         AddressDto updatedAddress = addressService.updateAddress(id, addressDto);
         if (updatedAddress != null) {
             return new ResponseEntity<>(updatedAddress, HttpStatus.OK);

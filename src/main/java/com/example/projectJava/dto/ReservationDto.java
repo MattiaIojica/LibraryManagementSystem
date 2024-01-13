@@ -19,15 +19,7 @@ public class ReservationDto {
     public ReservationDto() {
     }
 
-    public ReservationDto(Long bookId, Long userId, LocalDate reservationDate, String status) {
-        this.bookId = bookId;
-        this.userId = userId;
-        this.reservationDate = reservationDate;
-        this.status = status;
-    }
-
     // Getters and Setters
-
     public Long getId() {
         return id;
     }
@@ -66,16 +58,5 @@ public class ReservationDto {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "ReservationDto{" +
-                "id=" + id +
-                ", bookId=" + bookId +
-                ", userId=" + userId +
-                ", reservationDate=" + reservationDate +
-                ", status='" + status + '\'' +
-                '}';
     }
 }

@@ -24,9 +24,9 @@ public class UserDto {
     private String email;
 
     private LocalDate memberSince;
-
     private AddressDto address;
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }

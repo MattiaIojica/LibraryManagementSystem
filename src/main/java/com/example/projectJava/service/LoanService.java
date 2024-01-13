@@ -16,20 +16,14 @@ import java.util.Optional;
 public class LoanService {
 
     private final LoanRepository loanRepository;
-    private final ReservationRepository reservationRepository;
     private final LoanMapper loanMapper;
-    private final UserService userService;
 
     @Autowired
     public LoanService(
             LoanRepository loanRepository,
-            ReservationRepository reservationRepository,
-            LoanMapper loanMapper,
-            UserService userService) {
+            LoanMapper loanMapper) {
         this.loanRepository = loanRepository;
-        this.reservationRepository = reservationRepository;
         this.loanMapper = loanMapper;
-        this.userService = userService;
     }
 
     public List<LoanDto> getAllLoans() {
@@ -48,15 +42,16 @@ public class LoanService {
         return loanMapper.mapToLoanDto(savedLoan);
     }
 
-    public LoanDto updateLoan(Long id, LoanDto loanDto) {
+    public LoanDto updateLoan(Long id,
+                              LoanDto loanDto) {
         Optional<Loan> optionalLoan = loanRepository.findById(id);
         if (optionalLoan.isPresent()) {
             Loan existingLoan = optionalLoan.get();
-            // Update existingLoan with data from loanDto
+
             existingLoan.setDueDate(loanDto.getDueDate());
             existingLoan.setReturnDate(loanDto.getReturnDate());
             existingLoan.setStatus(loanDto.getStatus());
-            // Update other fields as needed
+
             Loan updatedLoan = loanRepository.save(existingLoan);
             return loanMapper.mapToLoanDto(updatedLoan);
         } else {

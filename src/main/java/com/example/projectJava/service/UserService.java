@@ -34,7 +34,6 @@ public class UserService {
     private final LoanMapper loanMapper;
     private final ReservationRepository reservationRepository;
     private final ReservationMapper reservationMapper;
-
     private final FineMapper fineMapper;
     private final FineRepository fineRepository;
 

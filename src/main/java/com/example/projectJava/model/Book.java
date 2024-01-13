@@ -21,7 +21,7 @@ public class Book {
     @Column(name = "quantity_available")
     private int quantityAvailable;
 
-
+    // Getters and Setters
     public Long getId() {
         return id;
     }

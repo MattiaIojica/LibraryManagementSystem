@@ -1,15 +1,12 @@
 package com.example.projectJava.controller;
 
 import com.example.projectJava.dto.LoanDto;
-import com.example.projectJava.mapper.LoanMapper;
-import com.example.projectJava.model.Loan;
 import com.example.projectJava.service.LoanService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -49,7 +46,8 @@ public class LoanController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<LoanDto> updateLoan(@PathVariable Long id, @RequestBody @Valid LoanDto loanDto) {
+    public ResponseEntity<LoanDto> updateLoan(@PathVariable Long id,
+                                              @RequestBody @Valid LoanDto loanDto) {
         LoanDto updatedLoan = loanService.updateLoan(id, loanDto);
         if (updatedLoan != null) {
             return new ResponseEntity<>(updatedLoan, HttpStatus.OK);

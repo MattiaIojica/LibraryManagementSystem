@@ -24,10 +24,8 @@ public class Fine {
     public Fine() {
     }
 
-    public Fine(BigDecimal amount) {
-        this.amount = amount;
-    }
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }

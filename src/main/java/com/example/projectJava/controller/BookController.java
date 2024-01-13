@@ -17,8 +17,12 @@ import java.util.List;
 @RequestMapping("/books")
 public class BookController {
 
+    private final BookService bookService;
+
     @Autowired
-    private BookService bookService;
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @GetMapping
     public ResponseEntity<List<BookDto>> getAllBooks() {
@@ -43,7 +47,8 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BookDto> updateBook(@PathVariable Long id, @RequestBody @Valid BookDto bookDto) {
+    public ResponseEntity<BookDto> updateBook(@PathVariable Long id,
+                                              @RequestBody @Valid BookDto bookDto) {
         BookDto updatedBook = bookService.updateBook(id, bookDto);
         if (updatedBook != null) {
             return new ResponseEntity<>(updatedBook, HttpStatus.OK);

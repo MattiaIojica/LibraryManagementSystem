@@ -35,13 +35,13 @@ public class FineController {
 
     @PostMapping
     public ResponseEntity<FineDto> createFine(@RequestBody FineDto fineDto) {
-        System.out.println(fineDto.toString());
         FineDto createdFine = fineService.createFine(fineDto);
         return ResponseEntity.ok(createdFine);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FineDto> updateFine(@PathVariable Long id, @RequestBody FineDto fineDto) {
+    public ResponseEntity<FineDto> updateFine(@PathVariable Long id,
+                                              @RequestBody FineDto fineDto) {
         FineDto updatedFine = fineService.updateFine(id, fineDto);
         return updatedFine != null
                 ? ResponseEntity.ok(updatedFine)
