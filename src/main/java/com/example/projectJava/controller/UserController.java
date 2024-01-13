@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/users")
 @RestController
+@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
 
