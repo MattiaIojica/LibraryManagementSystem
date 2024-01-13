@@ -29,11 +29,22 @@ public class User {
     @JsonIgnore
     private List<Reservation> reservations;
 
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Loan> loans;
+
 
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, String email, LocalDate memberSince, Address address, List<Reservation> reservations) {
+    public User(Long id,
+                String firstName,
+                String lastName,
+                String email,
+                LocalDate memberSince,
+                Address address,
+                List<Reservation> reservations,
+                List<Loan> loans) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -41,18 +52,27 @@ public class User {
         this.memberSince = memberSince;
         this.address = address;
         this.reservations = reservations;
+        this.loans = loans;
     }
 
-    public User(String firstName, String lastName, String email, LocalDate memberSince, Address address, List<Reservation> reservations) {
+    public User(String firstName, String lastName,
+                String email,
+                LocalDate memberSince,
+                Address address,
+                List<Reservation> reservations,
+                List<Loan> loans) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.memberSince = memberSince;
         this.address = address;
         this.reservations = reservations;
+        this.loans = loans;
     }
 
-    public User(String firstName, String lastName, String email) {
+    public User(String firstName,
+                String lastName,
+                String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -112,6 +132,14 @@ public class User {
 
     public void setReservations(List<Reservation> reservations) {
         this.reservations = reservations;
+    }
+
+    public List<Loan> getLoans() {
+        return loans;
+    }
+
+    public void setLoans(List<Loan> loans) {
+        this.loans = loans;
     }
 }
 

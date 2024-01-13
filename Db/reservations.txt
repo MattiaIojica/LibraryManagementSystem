@@ -1,0 +1,6 @@
+{
+  "bookId": 1,
+  "userId": 1,
+  "reservationDate": "2024-01-15",
+  "status": "PENDING"
+}

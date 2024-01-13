@@ -1,0 +1,12 @@
+{
+        "id": 1,
+        "street": "123 Main Street",
+        "streetNo": 456,
+        "building": "A"
+    },
+    {
+        "id": 3,
+        "street": "Sample Street",
+        "streetNo": 123,
+        "building": "Sample Building"
+    }

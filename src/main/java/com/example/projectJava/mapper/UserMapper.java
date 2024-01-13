@@ -18,14 +18,14 @@ public class UserMapper {
 
 
     public List<UserDto> mapListToStudentDto(List<User> users){
-        return users.stream().map(user -> map(user)).collect(Collectors.toList());
+        return users.stream().map(this::mapToUserDto).collect(Collectors.toList());
     }
 
     public List<User> mapListToStudent(List<UserDto> userDtos){
-        return userDtos.stream().map(userDto -> map(userDto)).collect(Collectors.toList());
+        return userDtos.stream().map(this::mapToUser).collect(Collectors.toList());
     }
 
-    public User map(UserDto userDto) {
+    public User mapToUser(UserDto userDto) {
         if (userDto == null) {
             return null;
         }
@@ -36,12 +36,12 @@ public class UserMapper {
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
         user.setMemberSince(userDto.getMemberSince());
-        user.setAddress(addressMapper.map(userDto.getAddress()));
+        user.setAddress(addressMapper.mapToAddress(userDto.getAddress()));
 
         return user;
     }
 
-    public UserDto map(User user) {
+    public UserDto mapToUserDto(User user) {
         if (user == null) {
             return null;
         }
@@ -52,7 +52,7 @@ public class UserMapper {
         userDto.setLastName(user.getLastName());
         userDto.setEmail(user.getEmail());
         userDto.setMemberSince(user.getMemberSince());
-        userDto.setAddress(addressMapper.map(user.getAddress()));
+        userDto.setAddress(addressMapper.mapToAddressDto(user.getAddress()));
 
         return userDto;
     }

@@ -1,0 +1,7 @@
+{
+  "bookId": 3,
+  "userId": 1,
+  "dueDate": "2024-02-01",
+  "returnDate": "2024-02-15",
+  "status": "ACTIVE"
+}

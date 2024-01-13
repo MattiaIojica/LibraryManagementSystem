@@ -35,6 +35,10 @@ public class Loan {
         this.id = id;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public Book getBook() {
         return book;
     }

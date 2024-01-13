@@ -1,6 +1,8 @@
 package com.example.projectJava.controller;
 
 
+import com.example.projectJava.dto.LoanDto;
+import com.example.projectJava.dto.ReservationDto;
 import com.example.projectJava.dto.UserDto;
 import com.example.projectJava.mapper.UserMapper;
 import com.example.projectJava.model.User;
@@ -52,4 +54,18 @@ public class UserController {
     public void delete(@PathVariable Long id) {
         userService.delete(id);
     }
+
+
+    @GetMapping("/{id}/loans")
+    public ResponseEntity<List<LoanDto>> getLoansByUserId(@PathVariable Long id) {
+        List<LoanDto> loans = userService.getLoansByUserId(id);
+        return ResponseEntity.ok(loans);
+    }
+
+    @GetMapping("/{id}/reservations")
+    public ResponseEntity<List<ReservationDto>> getReservationsByUserId(@PathVariable Long id) {
+        List<ReservationDto> reservations = userService.getReservationsByUserId(id);
+        return ResponseEntity.ok(reservations);
+    }
+
 }

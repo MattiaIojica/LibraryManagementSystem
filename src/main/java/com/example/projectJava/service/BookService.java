@@ -69,7 +69,10 @@ public class BookService {
         }
     }
 
-
+    public Book findById(Long id) {
+        Optional<Book> optionalBook = bookRepository.findById(id);
+        return optionalBook.orElse(null);
+    }
 
     public boolean deleteBook(Long id) {
         if (bookRepository.existsById(id)) {

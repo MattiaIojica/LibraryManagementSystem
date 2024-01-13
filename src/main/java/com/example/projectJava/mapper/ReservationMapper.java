@@ -30,7 +30,7 @@ public class ReservationMapper {
 
         Book book = new Book();
         book.setId(reservationDto.getBookId());
-        
+
         User user = new User();
         user.setId(reservationDto.getUserId());
 

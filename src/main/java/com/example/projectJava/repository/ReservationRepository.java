@@ -1,6 +1,7 @@
 package com.example.projectJava.repository;
 
 import com.example.projectJava.model.Reservation;
+import com.example.projectJava.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,4 +15,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     List<Reservation> findAllByBookId(Long id);
 
     Optional<Reservation> findById(Long id);
+
+    List<Reservation> findByUser(User user);
 }

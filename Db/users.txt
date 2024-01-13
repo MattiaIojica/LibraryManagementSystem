@@ -1,0 +1,11 @@
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "memberSince": "2022-01-01",
+  "address": {
+    "street": "123 Main Street",
+    "streetNo": 456,
+    "building": "A"
+  }
+}
