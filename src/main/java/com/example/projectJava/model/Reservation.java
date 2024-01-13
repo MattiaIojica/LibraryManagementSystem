@@ -1,5 +1,6 @@
 package com.example.projectJava.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -20,11 +21,17 @@ public class Reservation {
     private User user;
 
     @Column(name = "reservation_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDate reservationDate;
 
     private String status;
 
     public Reservation() {
+    }
+
+    public Reservation(LocalDate reservationDate, String status) {
+        this.reservationDate = reservationDate;
+        this.status = status;
     }
 
     public Reservation(LocalDate reservationDate) {

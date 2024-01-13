@@ -1,0 +1,45 @@
+{
+        "id": 1,
+        "isbn": "123456789",
+        "title": "Sample Book",
+        "author": "John Doe",
+        "genre": "Fiction",
+        "publishedYear": 2022,
+        "quantityAvailable": 10
+    },
+    {
+        "id": 2,
+        "isbn": "234567890",
+        "title": "Adventure Chronicles",
+        "author": "Jane Smith",
+        "genre": "Adventure",
+        "publishedYear": 2023,
+        "quantityAvailable": 15
+    },
+    {
+        "id": 3,
+        "isbn": "345678901",
+        "title": "Mystery Manor",
+        "author": "Alex Johnson",
+        "genre": "Mystery",
+        "publishedYear": 2021,
+        "quantityAvailable": 8
+    },
+    {
+        "id": 4,
+        "isbn": "456789012",
+        "title": "Sci-Fi Saga",
+        "author": "Samuel Rogers",
+        "genre": "Science Fiction",
+        "publishedYear": 2020,
+        "quantityAvailable": 12
+    },
+    {
+        "id": 5,
+        "isbn": "567890123",
+        "title": "Historical Fiction",
+        "author": "Emily White",
+        "genre": "Historical Fiction",
+        "publishedYear": 2019,
+        "quantityAvailable": 10
+    }
