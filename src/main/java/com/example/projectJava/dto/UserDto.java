@@ -26,6 +26,22 @@ public class UserDto {
     private LocalDate memberSince;
     private AddressDto address;
 
+    public UserDto() {
+    }
+
+    public UserDto(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
+    public UserDto(Long id, String firstName, String lastName, String email) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
     // Getters and Setters
     public Long getId() {
         return id;

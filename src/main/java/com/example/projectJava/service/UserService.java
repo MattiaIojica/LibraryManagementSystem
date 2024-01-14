@@ -70,10 +70,6 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public List<UserDto> getUsersWithAddressStreetName(String streetName){
-        return userMapper.mapListToStudentDto(userRepository.findAllByAddress_Street(streetName));
-    }
-
     public UserDto getById(Long id){
         Optional<User> optionalUser = userRepository.findById(id);
 

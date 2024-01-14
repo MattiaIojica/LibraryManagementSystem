@@ -6,15 +6,23 @@ import com.example.projectJava.dto.LoanDto;
 import com.example.projectJava.dto.ReservationDto;
 import com.example.projectJava.dto.UserDto;
 import com.example.projectJava.service.UserService;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+import java.net.URI;
 import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@Api(value = "/users", tags = "Users")
 public class UserController {
     private final UserService userService;
 
@@ -28,26 +36,26 @@ public class UserController {
         return userService.getAll();
     }
 
-    @GetMapping("/id/{id}")
-    public UserDto getById(@PathVariable Long id) {
-        return userService.getById(id);
+    @GetMapping(path = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
+    @ApiOperation(value = "Get details for a user", notes = "Get the details for a user based on the information from the database and the user's id")
+    public ResponseEntity<UserDto> getById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(userService.getById(id));
     }
 
 
     @PostMapping
-    public UserDto save(@RequestBody @Valid UserDto userDto) {
-        return userService.save(userDto);
-    }
-
-    @GetMapping("/address/street/{streetName}")
-    public List<UserDto> getAllStudentsByAddressStreet(@PathVariable String streetName) {
-        return userService.getUsersWithAddressStreetName(streetName);
+    @ApiOperation(value = "Create a user")
+    public ResponseEntity<UserDto> save(@RequestBody @Valid UserDto userDto) {
+        UserDto newUser = userService.save(userDto);
+        return ResponseEntity.created(URI.create("/users/" + newUser.getId())).body(newUser);
     }
 
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    @DeleteMapping(path = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
+    @ApiOperation(value = "Delete a user", notes = "Delete a user by id from the database and it's reservations")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
         userService.delete(id);
+        return ResponseEntity.ok().body("Succesfully deleted");
     }
 
 
