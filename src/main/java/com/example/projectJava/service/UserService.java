@@ -110,4 +110,51 @@ public class UserService {
         }
         return Collections.emptyList();
     }
+
+    public UserDto update(Long id, UserDto updatedUserDto) {
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if (!optionalUser.isPresent()) {
+            throw new UserNotFoundException(id);
+        }
+
+        User existingUser = optionalUser.get();
+        User updatedUser = userMapper.mapToUser(updatedUserDto);
+
+
+        // Update user information
+        existingUser.setFirstName(updatedUser.getFirstName());
+        existingUser.setLastName(updatedUser.getLastName());
+        existingUser.setEmail(updatedUser.getEmail());
+
+        // Save the updated user to the repository
+        User savedUser = userRepository.save(existingUser);
+
+        return userMapper.mapToUserDto(savedUser);
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -90,4 +90,16 @@ public class UserDto {
     public void setAddress(AddressDto address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", memberSince=" + memberSince +
+                ", address=" + address +
+                '}';
+    }
 }

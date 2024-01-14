@@ -27,9 +27,10 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.*;
 
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 public class UserServiceUnitTest {
 
@@ -53,12 +54,12 @@ public class UserServiceUnitTest {
     private UserService userService;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testGetById_success(){
+    public void testGetById_success() {
         User user = getDummyUser();
 
         UserDto userDto = getDummyUserDto();
@@ -68,7 +69,7 @@ public class UserServiceUnitTest {
         Mockito.when(userMapper.mapToUserDto(user))
                 .thenReturn(userDto);
 
-        UserDto returnedUser = userService.getById(10l);
+        UserDto returnedUser = userService.getById(10L);
 
         assertEquals(returnedUser.getFirstName(), userDto.getFirstName());
         assertEquals(returnedUser.getLastName(), userDto.getLastName());
@@ -76,14 +77,14 @@ public class UserServiceUnitTest {
     }
 
     @Test
-    public void testGetById_exception(){
+    public void testGetById_exception() {
         Mockito.when(userRepository.findById(Mockito.any()))
                 .thenReturn(Optional.empty());
 
-        Assertions.assertThrows(UserNotFoundException.class, () -> userService.getById(12L));
+        assertThrows(UserNotFoundException.class, () -> userService.getById(12L));
     }
 
-    private User getDummyUser(){
+    private User getDummyUser() {
         User user = new User();
         user.setId(10L);
         user.setFirstName("Mircea");
@@ -92,7 +93,7 @@ public class UserServiceUnitTest {
         return user;
     }
 
-    private UserDto getDummyUserDto(){
+    private UserDto getDummyUserDto() {
         UserDto userDto = new UserDto();
         userDto.setId(10L);
         userDto.setFirstName("Mircea");
@@ -101,7 +102,7 @@ public class UserServiceUnitTest {
         return userDto;
     }
 
-    private User getAnotherDummyUser(){
+    private User getAnotherDummyUser() {
         User user = new User();
         user.setId(11L);
         user.setFirstName("Maria");
@@ -110,7 +111,7 @@ public class UserServiceUnitTest {
         return user;
     }
 
-    private UserDto getAnotherDummyUserDto(){
+    private UserDto getAnotherDummyUserDto() {
         UserDto userDto = new UserDto();
         userDto.setId(11L);
         userDto.setFirstName("Maria");
@@ -120,7 +121,7 @@ public class UserServiceUnitTest {
     }
 
     @Test
-    public void testGetAll_Success(){
+    public void testGetAll_Success() {
         List<User> userList = Arrays.asList(getDummyUser(), getAnotherDummyUser());
         List<UserDto> userDtoList = Arrays.asList(getDummyUserDto(), getAnotherDummyUserDto());
 
@@ -156,6 +157,27 @@ public class UserServiceUnitTest {
         assertEquals(userDto.getLastName(), actualSavedUserDto.getLastName());
         assertEquals(userDto.getEmail(), actualSavedUserDto.getEmail());
     }
+
+//    @Test
+//    void testUpdateUser() {
+//        UserDto userDto = getDummyUserDto();
+//
+//        UserDto newUser = new UserDto(10L, "Cosmin", "Vincu", "cosmin@gmail.com");
+//
+//        when(userMapper.mapToUserDto(Mockito.any())).thenReturn(userDto);
+//        when(userRepository.findById(10L)).thenReturn(Optional.of(newUser));
+//        when(userMapper.mapToUser(userDto)).thenReturn(newUser);
+//        when(userRepository.save(newUser)).thenReturn(newUser);
+//
+//
+//        UserDto updatedUser = userService.update(savedUser.getId(), newUser);
+//
+//        assertEquals(updatedUser.getId(), newUser.getId());
+//        assertEquals(updatedUser.getFirstName(), newUser.getFirstName());
+//        assertEquals(updatedUser.getLastName(), newUser.getLastName());
+//        assertEquals(updatedUser.getEmail(), newUser.getEmail());
+//    }
+
 
 
     @Test
@@ -207,7 +229,7 @@ public class UserServiceUnitTest {
         return new ArrayList<>(Arrays.asList(getDummyLoanDto()));
     }
 
-    private Loan getDummyLoanOne(){
+    private Loan getDummyLoanOne() {
         Loan loan = new Loan();
         loan.setId(1L);
         loan.setUser(getDummyUser());
@@ -215,7 +237,7 @@ public class UserServiceUnitTest {
         return loan;
     }
 
-    private LoanDto getDummyLoanDto(){
+    private LoanDto getDummyLoanDto() {
         LoanDto loanDto = new LoanDto();
         loanDto.setId(1L);
         loanDto.setUserId(getDummyUser().getId());
@@ -292,9 +314,9 @@ public class UserServiceUnitTest {
 
         when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
-        List<FineDto> actualFinessDto = userService.getFinesByUserId(userId);
+        List<FineDto> actualFinesDto = userService.getFinesByUserId(userId);
 
-        assertEquals(Collections.emptyList(), actualFinessDto);
+        assertEquals(Collections.emptyList(), actualFinesDto);
     }
 
     @Test
@@ -306,5 +328,51 @@ public class UserServiceUnitTest {
         List<ReservationDto> actualReservationsDto = userService.getReservationsByUserId(userId);
 
         assertEquals(Collections.emptyList(), actualReservationsDto);
+    }
+
+    @Test
+    public void testUpdateUser_Success() {
+        UserDto userDto = getDummyUserDto();
+
+        when(userMapper.mapToUserDto(Mockito.any())).thenReturn(userDto);
+
+        User newUser = getDummyUser();
+        newUser.setFirstName("Dani");
+        newUser.setEmail("dani@gmail.com");
+
+        when(userRepository.findById(userDto.getId())).thenReturn(Optional.of(newUser));
+        when(userMapper.mapToUser(userDto)).thenReturn(getDummyUser());
+        when(userRepository.save(newUser)).thenReturn(newUser);
+
+        UserDto actualSavedUserDto = userService.update(userDto.getId(), userDto);
+
+
+        assertEquals(userDto.getId(), actualSavedUserDto.getId());
+        assertEquals(userDto.getFirstName(), actualSavedUserDto.getFirstName());
+        assertEquals(userDto.getLastName(), actualSavedUserDto.getLastName());
+        assertEquals(userDto.getEmail(), actualSavedUserDto.getEmail());
+    }
+
+    @Test
+    public void testUpdateUser_UserNotFound() {
+        UserDto userDto = getDummyUserDto();
+
+        when(userMapper.mapToUserDto(Mockito.any())).thenReturn(userDto);
+
+        User newUser = getDummyUser();
+        newUser.setFirstName("Dani");
+        newUser.setEmail("dani@gmail.com");
+
+        when(userRepository.findById(userDto.getId())).thenReturn(Optional.empty());
+
+        // Act and Assert
+        assertThrows(UserNotFoundException.class, () -> userService.update(userDto.getId(), userDto));
+
+        // Verify that userRepository.findById was called
+        verify(userRepository, times(1)).findById(userDto.getId());
+        // Verify that userRepository.save, userMapper.mapToUser, and userMapper.mapToUserDto were never called
+        verify(userRepository, never()).save(any());
+        verify(userMapper, never()).mapToUser(any());
+        verify(userMapper, never()).mapToUserDto(any());
     }
 }

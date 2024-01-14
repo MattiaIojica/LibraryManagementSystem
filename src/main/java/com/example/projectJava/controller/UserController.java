@@ -76,4 +76,12 @@ public class UserController {
         List<FineDto> fines = userService.getFinesByUserId(id);
         return ResponseEntity.ok(fines);
     }
+
+    @PutMapping(path = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
+    @ApiOperation(value = "Update a user", notes = "Update a user's information based on the provided user ID")
+    public ResponseEntity<UserDto> update(@PathVariable Long id, @RequestBody @Valid UserDto updatedUserDto) {
+        UserDto updatedUser = userService.update(id, updatedUserDto);
+        return ResponseEntity.ok(updatedUser);
+    }
+
 }

@@ -200,4 +200,28 @@ public class UserControllerUnitTest {
         return new ArrayList<>(Arrays.asList(new ReservationDto(), new ReservationDto()));
     }
 
+    @Test
+    public void testUpdateUser_Success() throws Exception {
+        UserDto userDto = getDummyUserDtoOne();
+        UserDto updatedUser = getUpdatedUser();
+        Long userId = userDto.getId();
+
+        when(userService.update(any(), any())).thenReturn(updatedUser);
+
+        mockMvc.perform(put("/users/{id}", userId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(userDto)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(new ObjectMapper().writeValueAsString(updatedUser)));
+
+    }
+
+    private UserDto getUpdatedUser() {
+        UserDto updatedUser = new UserDto();
+        updatedUser.setId(10L);
+        updatedUser.setFirstName("UpdatedFirstName");
+        updatedUser.setLastName("UpdatedLastName");
+        updatedUser.setEmail("updated.email@example.com");
+        return updatedUser;
+    }
 }
