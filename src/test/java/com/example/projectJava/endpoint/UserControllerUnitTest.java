@@ -94,7 +94,7 @@ public class UserControllerUnitTest {
 	public void deleteUser() throws Exception {
 
 		mockMvc.perform(delete("/users/{id}", 1).contentType("application/json"))
-				.andExpect(content().string("Succesfully deleted")).andExpect(status().isOk());
+				.andExpect(content().string("Successfully deleted")).andExpect(status().isOk());
 	}
 
     @Test
