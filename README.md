@@ -228,6 +228,11 @@ public class UserDto {
 
 ## 💻 SWAGGER
 
+```
+http://localhost:8081/swagger-ui/index.html
+```
+![SWAGGER](https://github.com/MattiaIojica/LibraryManagementSystem/blob/main/Swagger.png?raw=true)
+
 Contains information for each API
 
 ```Java
