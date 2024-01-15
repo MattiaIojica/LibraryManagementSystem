@@ -110,16 +110,54 @@ UNIT tests for REST endpoints and services with all tests passed.
 ```
 
 ## Controllers 
-Exista 7 controllere create cate una pentru fiecare entitate in parte.
+
 - UserController /users
 - BookController /books
 - LoanController /loans
 - FineController /fines
 - ReservationController /reservations
 - AddressController /addresses
+
+```Java
+@RestController
+@RequestMapping("/books")
+public class BookController {
+
+    private final BookService bookService;
+
+    @Autowired
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
+
+    @PostMapping
+    @Operation(summary = "Create a book",
+            description = "Returns the new book")
+    public ResponseEntity<BookDto> createBook(@RequestBody @Valid BookDto bookDto) {
+        ...
+    }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Update a book",
+            description = "Update a book's information based on the provided book ID")
+    public ResponseEntity<BookDto> updateBook(@PathVariable Long id,
+                                              @RequestBody @Valid BookDto bookDto) {
+        BookDto updatedBook = bookService.updateBook(id, bookDto);
+        ...
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a book",
+            description = "Delete a book by id from the database")
+    public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
+        ...
+    }
+  ...
+}
+```
   
 ## Services
-Exista 7 servicii create cate una pentru fiecare entitate in parte.
+
 - UserService 
 - BookService 
 - LoanService 
