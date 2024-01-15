@@ -2,6 +2,7 @@ package com.example.projectJava.controller;
 
 import com.example.projectJava.dto.LoanDto;
 import com.example.projectJava.service.LoanService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,12 +24,14 @@ public class LoanController {
     }
 
     @GetMapping
+    @Operation(summary = "Get all loans", description = "Returns the loans from the database")
     public ResponseEntity<List<LoanDto>> getAllLoans() {
         List<LoanDto> loans = loanService.getAllLoans();
         return new ResponseEntity<>(loans, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get a loan by id", description = "Returns a loan as per the id")
     public ResponseEntity<LoanDto> getLoanById(@PathVariable Long id) {
         LoanDto loanDto = loanService.getLoanById(id);
         if (loanDto != null) {
@@ -39,6 +42,7 @@ public class LoanController {
     }
 
     @PostMapping
+    @Operation(summary = "Create a loan", description = "Returns the new loan")
     public ResponseEntity<LoanDto> createLoan(@RequestBody @Valid LoanDto loanDto) {
         LoanDto createdLoan = loanService.createLoan(loanDto);
 
@@ -46,6 +50,8 @@ public class LoanController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update a loan",
+            description = "Update a loan's information based on the provided loan ID")
     public ResponseEntity<LoanDto> updateLoan(@PathVariable Long id,
                                               @RequestBody @Valid LoanDto loanDto) {
         LoanDto updatedLoan = loanService.updateLoan(id, loanDto);
@@ -57,6 +63,8 @@ public class LoanController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a loan",
+            description = "Delete a loan by id from the database")
     public ResponseEntity<Void> deleteLoan(@PathVariable Long id) {
         if (loanService.deleteLoan(id)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

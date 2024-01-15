@@ -6,6 +6,8 @@ import com.example.projectJava.dto.LoanDto;
 import com.example.projectJava.dto.ReservationDto;
 import com.example.projectJava.dto.UserDto;
 import com.example.projectJava.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
@@ -32,19 +34,24 @@ public class UserController {
     }
 
     @GetMapping
+    @Operation(summary = "Get all Users", description = "Returns the users from the database")
     public List<UserDto> getAll() {
         return userService.getAll();
     }
 
-    @GetMapping(path = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
-    @ApiOperation(value = "Get details for a user", notes = "Get the details for a user based on the information from the database and the user's id")
-    public ResponseEntity<UserDto> getById(@PathVariable Long id) {
+    @Operation(summary = "Get a User by id", description = "Returns a user as per the id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved"),
+            @ApiResponse(responseCode = "404", description = "Not found - The User was not found")
+    })
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDto> getById(@PathVariable @Parameter(example = "1") Long id) {
         return ResponseEntity.ok().body(userService.getById(id));
     }
 
 
-    @PostMapping
-    @ApiOperation(value = "Create a user")
+    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+    @Operation(summary = "Create a User", description = "Returns the new user")
     public ResponseEntity<UserDto> save(@RequestBody @Valid UserDto userDto) {
         UserDto newUser = userService.save(userDto);
         return ResponseEntity.created(URI.create("/users/" + newUser.getId())).body(newUser);
@@ -52,34 +59,37 @@ public class UserController {
 
 
     @DeleteMapping(path = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
-    @ApiOperation(value = "Delete a user", notes = "Delete a user by id from the database and it's reservations")
-    public ResponseEntity<String> delete(@PathVariable Long id) {
+    @Operation(summary = "Delete a user", description = "Delete a user by id from the database")
+    public ResponseEntity<String> delete(@PathVariable @Parameter(example = "1") Long id) {
         userService.delete(id);
-        return ResponseEntity.ok().body("Succesfully deleted");
+        return ResponseEntity.ok().body("Successfully deleted");
     }
 
 
     @GetMapping("/{id}/loans")
-    public ResponseEntity<List<LoanDto>> getLoansByUserId(@PathVariable Long id) {
+    @Operation(summary = "Get loans", description = "Returns the list of loans of the user with the specific id")
+    public ResponseEntity<List<LoanDto>> getLoansByUserId(@PathVariable @Parameter(example = "1") Long id) {
         List<LoanDto> loans = userService.getLoansByUserId(id);
         return ResponseEntity.ok(loans);
     }
 
     @GetMapping("/{id}/reservations")
-    public ResponseEntity<List<ReservationDto>> getReservationsByUserId(@PathVariable Long id) {
+    @Operation(summary = "Get reservations", description = "Returns the list of reservations of the user with the specific id")
+    public ResponseEntity<List<ReservationDto>> getReservationsByUserId(@PathVariable @Parameter(example = "1") Long id) {
         List<ReservationDto> reservations = userService.getReservationsByUserId(id);
         return ResponseEntity.ok(reservations);
     }
 
     @GetMapping("/{id}/fines")
-    public ResponseEntity<List<FineDto>> getFinesByUserID(@PathVariable Long id) {
+    @Operation(summary = "Get fines", description = "Returns the list of fines of the user with the specific id")
+    public ResponseEntity<List<FineDto>> getFinesByUserID(@PathVariable @Parameter(example = "1") Long id) {
         List<FineDto> fines = userService.getFinesByUserId(id);
         return ResponseEntity.ok(fines);
     }
 
     @PutMapping(path = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
-    @ApiOperation(value = "Update a user", notes = "Update a user's information based on the provided user ID")
-    public ResponseEntity<UserDto> update(@PathVariable Long id, @RequestBody @Valid UserDto updatedUserDto) {
+    @Operation(summary = "Update a user", description = "Update a user's information based on the provided user ID")
+    public ResponseEntity<UserDto> update(@PathVariable Long id, @RequestBody @Valid @Parameter(example = "1") UserDto updatedUserDto) {
         UserDto updatedUser = userService.update(id, updatedUserDto);
         return ResponseEntity.ok(updatedUser);
     }
