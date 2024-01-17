@@ -35,6 +35,9 @@ public class UserController {
 
     @GetMapping
     @Operation(summary = "Get all Users", description = "Returns the users from the database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved")
+    })
     public List<UserDto> getAll() {
         return userService.getAll();
     }
@@ -52,6 +55,11 @@ public class UserController {
 
     @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
     @Operation(summary = "Create a User", description = "Returns the new user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully Saved"),
+            @ApiResponse(responseCode = "400", description = "Field Validation Error"),
+            @ApiResponse(responseCode = "500", description = "Bad Request")
+    })
     public ResponseEntity<UserDto> save(@RequestBody @Valid UserDto userDto) {
         UserDto newUser = userService.save(userDto);
         return ResponseEntity.created(URI.create("/users/" + newUser.getId())).body(newUser);
@@ -60,6 +68,10 @@ public class UserController {
 
     @DeleteMapping(path = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
     @Operation(summary = "Delete a user", description = "Delete a user by id from the database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully Deleted"),
+            @ApiResponse(responseCode = "404", description = "Not found - The User was not found")
+    })
     public ResponseEntity<String> delete(@PathVariable @Parameter(example = "1") Long id) {
         userService.delete(id);
         return ResponseEntity.ok().body("Successfully deleted");
