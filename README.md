@@ -1,6 +1,90 @@
 # 📚 Library Management System - Documentation
 
 
+## Project Overview:
+<h3> The project aims to create a comprehensive library management system that facilitates 
+  efficient management of users, books, loans, fines, and reservations.</h3>
+
+## Business Requirements:
+
+1. **User Registration and Management:**
+   - The system allows adding, modifying, and displaying users.
+2. **Book Management:**
+   - The system allows adding, modifying, and displaying books.
+3. **Loan Management:**
+   - The system allows adding, modifying, and displaying loans.
+4. **Reservation Management:**
+   - The system allows adding, modifying, and displaying reservations.
+5. **Fine Management:**
+   - The system allows adding, modifying, and displaying fines.
+6. **Deletion:**
+   - The system allows users to be deleted.
+   - The system allows books to be deleted.
+   - The system allows loans, reservations, and fines to be deleted.
+7. **Fines Displaying:**
+   - The system allows the display of a user's fines.
+8. **Loans Displaying:**
+   - The system allows the display of a user's loans.
+9. **Loans Reservations:**
+   - The system allows the display of a user's reservations.
+10. **Database Storage:**
+    - The system uses a database to store information about users, books, fines, loans, and reservations.
+
+## MVP Features:
+
+### 1. User Management:
+
+The system should allow administrators to manage user information, including registration, retrieval, update, and deletion of user profiles.
+
+#### Key Functionalities:
+
+- User registration with essential details (firstName, lastName, email).
+- View and edit existing user profiles.
+- Delete user accounts if needed.
+
+
+### 2. Book Management:
+Description:
+The system should enable efficient handling of the library's book inventory, covering aspects like adding new books, updating book details, and removing books from circulation.
+
+#### Key Functionalities:
+
+- Add new books to the library inventory with details such as title, author, and ISBN.
+- Update existing book information.
+
+
+### 3. Loan Management:
+Description:
+The system should support the process of loaning books to users and managing the return of borrowed items, including tracking due dates and fines.
+
+#### Key Functionalities:
+
+- Loan books to users, associating them with due dates.
+- Record book returns and calculate fines for overdue items.
+- Display a user's active loans.
+
+
+### 4. Reservation System:
+Description:
+The system should allow users to reserve books that are currently unavailable, providing a queue system for popular titles.
+
+#### Key Functionalities:
+
+- Users can place reservations for books that are currently on loan or unavailable.
+- Display a user's reservations.
+
+
+### 5. Fine Management:
+Description:
+The system should handle fines accrued by users for overdue book returns, allowing administrators to manage and users to view their fines.
+
+#### Key Functionalities:
+
+- Automatically calculate fines based on due dates for returned books.
+- Display a user's current fines.
+- Admins can view and manage fines, including marking them as paid.
+
+
 ## 🛢 MySQL database - Entities
 ![DB schema](https://github.com/MattiaIojica/LibraryManagementSystem/blob/main/diagram.jpeg?raw=true)
 
@@ -284,11 +368,3 @@ Contains information for each API
         return ResponseEntity.ok().body(userService.getById(id));
     }
 ```
-
-
-
-
-
-
-
-
