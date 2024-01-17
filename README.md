@@ -88,8 +88,9 @@ The system should handle fines accrued by users for overdue book returns, allowi
 ## 🛢 MySQL database - Entities
 ![DB schema](https://github.com/MattiaIojica/LibraryManagementSystem/blob/main/diagram.jpeg?raw=true)
 
+## 🌐 REST ENDPOINTS
 <details>
-  <summary> <h2> 🌐 REST ENDPOINTS - CRUD </h2> </summary>
+  <summary> <h3>CRUD</h3> </summary>
 <!-- ## 🌐 REST ENDPOINTS - CRUD -->
 
 ### CREATE
@@ -103,19 +104,19 @@ The system should handle fines accrued by users for overdue book returns, allowi
 ### READ
   1. Get all Users
   2. Get User by ID
-  3. Get Reservation of the user with the specific ID
+  3. Get the Reservation of the user with the specific ID
   4. Get Loans of the user with the specific ID
   5. Get Fines of the user with the specific ID
   6. Get all Books
   7. Get Book by ID 
   8. Get all Reservations
-  9. Get Reservation by ID
+  9. Get a Reservation by ID
   10. Get all Loans
-  11. Get Loan by ID
+  11. Get a Loan by ID
   12. Get all Fines
   13. Get Fine by ID
   14. Get all Addresses
-  15. Get Address by ID
+  15. Get the Address by ID
    
 ### UPDATE
   1. Update User details
@@ -134,64 +135,6 @@ The system should handle fines accrued by users for overdue book returns, allowi
   6. Delete an Address
 
 </details>
-
-## ✅ Testing
-
-UNIT tests for REST endpoints and services with all tests passed.
-
-
-```Java
-  public class BookControllerUnitTest {
-
-      private MockMvc mockMvc;
-      @Mock
-      private BookService service;
-      @InjectMocks
-      private BookController controller;
-  
-      ...
-  
-      @Test
-      public void testGetAllBooks() throws Exception {
-          List<BookDto> dtoList = getDummyDtos();
-          Mockito.when(service.getAllBooks()).thenReturn(dtoList);
-  
-          mockMvc.perform(MockMvcRequestBuilders
-                          .get("/books"))
-                  .andExpect(status().isOk())
-                  .andExpect(MockMvcResultMatchers.content().json(new ObjectMapper().writeValueAsString(dtoList)));
-      }
-  ...
-}
-```
-
-```Java
-  public class BookServiceUnitTest {
-
-    @Mock
-    private BookRepository repository;
-    @InjectMocks
-    private BookService service;
-
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
-
-    @Test
-    void testDeleteAddress_SuccessfulDeletion() {
-        Long idToDelete = 1L;
-
-        when(repository.existsById(idToDelete)).thenReturn(true);
-
-        boolean result = service.deleteBook(idToDelete);
-
-        assertTrue(result); // Deletion should be successful
-        verify(repository, times(1)).deleteById(idToDelete);
-    }
-  ...
-}
-```
 
 ## Controllers 
 
@@ -322,7 +265,7 @@ public class UserMapper {
 ```
 
 ## DTOs
-- Each entity of type *EntityNameDto* contains all fields validations according to type
+- Each entity of type *EntityNameDto* contains all field validations according to type
 ```Java
 public class UserDto {
 
@@ -347,6 +290,64 @@ public class UserDto {
   ...
 }
 ```
+## ✅ Testing
+
+UNIT tests for REST endpoints and services with all tests passed.
+
+
+```Java
+  public class BookControllerUnitTest {
+
+      private MockMvc mockMvc;
+      @Mock
+      private BookService service;
+      @InjectMocks
+      private BookController controller;
+  
+      ...
+  
+      @Test
+      public void testGetAllBooks() throws Exception {
+          List<BookDto> dtoList = getDummyDtos();
+          Mockito.when(service.getAllBooks()).thenReturn(dtoList);
+  
+          mockMvc.perform(MockMvcRequestBuilders
+                          .get("/books"))
+                  .andExpect(status().isOk())
+                  .andExpect(MockMvcResultMatchers.content().json(new ObjectMapper().writeValueAsString(dtoList)));
+      }
+  ...
+}
+```
+
+```Java
+  public class BookServiceUnitTest {
+
+    @Mock
+    private BookRepository repository;
+    @InjectMocks
+    private BookService service;
+
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    void testDeleteAddress_SuccessfulDeletion() {
+        Long idToDelete = 1L;
+
+        when(repository.existsById(idToDelete)).thenReturn(true);
+
+        boolean result = service.deleteBook(idToDelete);
+
+        assertTrue(result); // Deletion should be successful
+        verify(repository, times(1)).deleteById(idToDelete);
+    }
+  ...
+}
+```
+
 
 ## 💻 SWAGGER
 
