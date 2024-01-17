@@ -48,6 +48,7 @@ public class FineService {
         if (optionalFine.isPresent()) {
             Fine existingFine = optionalFine.get();
             existingFine.setAmount(fineDto.getAmount());
+            existingFine.setPaymentStatus(fineDto.getPaymentStatus());
 
             Fine updatedFine = fineRepository.save(existingFine);
             return fineMapper.mapToFineDto(updatedFine);
