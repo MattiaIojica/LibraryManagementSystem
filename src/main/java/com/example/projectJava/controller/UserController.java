@@ -56,7 +56,7 @@ public class UserController {
     @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
     @Operation(summary = "Create a User", description = "Returns the new user")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully Saved"),
+            @ApiResponse(responseCode = "201", description = "Successfully Saved"),
             @ApiResponse(responseCode = "400", description = "Field Validation Error"),
             @ApiResponse(responseCode = "500", description = "Bad Request")
     })

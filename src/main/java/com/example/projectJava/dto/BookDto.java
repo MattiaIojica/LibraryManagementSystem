@@ -1,10 +1,23 @@
 package com.example.projectJava.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+import static io.swagger.v3.oas.annotations.media.Schema.AccessMode.READ_ONLY;
+
 public class BookDto {
 
+    @Schema(accessMode = READ_ONLY)
     private Long id;
+    @NotNull
+    @NotBlank
     private String isbn;
+    @NotNull
+    @NotBlank
     private String title;
+    @NotNull
+    @NotBlank
     private String author;
     private String genre;
     private int publishedYear;

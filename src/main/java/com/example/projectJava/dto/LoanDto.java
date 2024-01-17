@@ -1,13 +1,23 @@
 package com.example.projectJava.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
+import static io.swagger.v3.oas.annotations.media.Schema.AccessMode.READ_ONLY;
+
 public class LoanDto {
 
+    @Schema(accessMode = READ_ONLY)
     private Long id;
+    @NotNull
+    @Min(value = 1)
     private Long bookId;
+    @NotNull
+    @Min(value = 1)
     private Long userId;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
